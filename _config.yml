@@ -5,7 +5,7 @@ execute:
   execute_notebooks: off
 
 repository:
-  url: https://github.com/YOUR_USERNAME/zen-optics-binder-book
+  url: https://github.com/z-labo/zen-optics-binder-book
   branch: main
 
 launch_buttons:
