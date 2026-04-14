@@ -1,0 +1,10 @@
+name: zen-binder
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - matplotlib
+  - plotly
+  - ipywidgets
+  - jupyterlab
