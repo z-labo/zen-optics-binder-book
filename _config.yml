@@ -16,3 +16,9 @@ launch_buttons:
 html:
   use_repository_button: true
   use_issues_button: true
+
+sphinx:
+  config:
+    html_js_files:
+      - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
+      - https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@*/dist/embed-amd.js
