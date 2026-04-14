@@ -6,5 +6,5 @@ dependencies:
   - numpy
   - matplotlib
   - plotly
-  - ipywidgets
+  - ipywidgets=7.7.*
   - jupyterlab

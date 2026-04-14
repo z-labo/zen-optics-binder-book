@@ -1,4 +1,4 @@
 jupyter-book
 plotly
-ipywidgets
+ipywidgets<8
 numpy
