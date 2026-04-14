@@ -25,5 +25,4 @@ jobs:
 
       - name: Deploy
         run: |
-          ghp-import -n -p -f _build/html
-          
+          ghp-import -n -p -f _build/html 
