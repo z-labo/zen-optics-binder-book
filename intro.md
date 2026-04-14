@@ -1,4 +1,4 @@
-# Zen Optics Interactive Book
+# Basics of optics
 
 This is a fully interactive site.
 
