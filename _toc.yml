@@ -3,4 +3,5 @@ root: intro
 
 chapters:
   - file: interference
-  - file: wave
+  - file: exit
+
