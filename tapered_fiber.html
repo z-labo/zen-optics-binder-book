@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tapered Fiber Optics — 출사각 분석</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #181c27;
+      --surface2: #1f2435;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8eaf0;
+      --muted: #8b90a0;
+      --accent: #4f8ef7;
+      --accent2: #e05c6a;
+      --accent3: #52c4a0;
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 16px;
+      line-height: 1.85;
+      padding: 3rem 1rem 5rem;
+    }
+
+    .page {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    /* ── header ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .label {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: normal;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    /* ── body text ── */
+    p { margin-bottom: 1.2rem; color: var(--text); }
+
+    /* ── equations ── */
+    .eq-block {
+      display: flex;
+      justify-content: center;
+      margin: 1.6rem 0;
+      overflow-x: auto;
+    }
+
+    .eq-block mjx-container,
+    .MJX-TEX { text-align: center !important; }
+
+    /* ── note box ── */
+    .note {
+      background: var(--surface2);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.9rem 1.2rem;
+      margin: 1.5rem 0 2rem;
+      font-size: 0.93rem;
+      color: var(--muted);
+    }
+
+    /* ── section divider ── */
+    .section-title {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--accent3);
+      text-transform: uppercase;
+      margin: 3rem 0 1.2rem;
+    }
+
+    /* ── interactive widget ── */
+    .widget {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 1.2rem;
+    }
+
+    .ctrl-card {
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+    }
+
+    .ctrl-label {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .ctrl-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ctrl-row input[type=range] {
+      flex: 1;
+      -webkit-appearance: none;
+      height: 4px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .ctrl-row input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+    }
+
+    .ctrl-val {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      font-weight: bold;
+      min-width: 38px;
+      text-align: right;
+      color: var(--accent);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 1.2rem;
+    }
+
+    .stat {
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+    }
+
+    .stat-label {
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-val {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      height: 300px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 20px;
+      margin-top: 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .legend span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .leg-line {
+      width: 22px;
+      height: 2px;
+      display: inline-block;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 520px) {
+      .controls, .stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="label">Fiber Optics / Tapered Interface</p>
+    <h1>경사 출사면을 가진 광섬유의 출사각 분석</h1>
+  </header>
+
+  <p>
+    출사면이 평평하지 않고 각도 $\beta$를 가지는 tapered 단면을 가진다고 가정하자.
+    코어의 중심을 따라 직진하는 빛을 고려하면, 경계면에서 Snell의 법칙이 성립한다.
+  </p>
+
+  <div class="eq-block">
+    $$n_1 \sin\phi_1 = n_0 \sin\phi_0$$
+  </div>
+
+  <p>
+    여기서 $\phi_1 = \dfrac{\pi}{2} - \beta$, $\theta_0 = \phi_0 - \phi_1$ 를 대입하면 출사각은 다음과 같이 도출된다.
+  </p>
+
+  <div class="eq-block">
+    $$\theta_0 = \sin^{-1}\!\left(\frac{n_1}{n_0}\cos\beta\right) - \left(\frac{\pi}{2} - \beta\right)$$
+  </div>
+
+  <div class="note">
+    <strong>출사 조건:</strong>
+    $\phi_1$이 코어-외부 경계면에서의 임계각 $\theta_c$보다 작아야 출사가 이루어진다.
+    즉, $\phi_1 < \theta_c$ 이어야 하므로 $\beta > \dfrac{\pi}{2} - \theta_c$ 가 필요하다.
+    이 하한을 <em>cutoff angle</em>이라 부른다.
+  </div>
+
+  <p>
+    또한, $\dfrac{\partial \theta_0}{\partial \beta} = 0$ 을 만족하는 수학적 최대점이 존재하더라도,
+    현재 조건에서 그 점은 cutoff angle보다 낮은 $\beta$에 위치한다.
+    따라서 실질적인 출사각 최대치는 $\beta = \beta_\text{min}$ (cutoff angle) 에서 발생하며,
+    $\beta$ 가 커질수록 $\theta_0$ 는 단조 감소한다.
+  </p>
+
+  <!-- ── Interactive ── -->
+  <p class="section-title">Interactive — β와 출사각 θ₀의 관계</p>
+
+  <div class="widget">
+
+    <div class="controls">
+      <div class="ctrl-card">
+        <span class="ctrl-label">코어 굴절률 &nbsp;n₁</span>
+        <div class="ctrl-row">
+          <input type="range" id="n1" min="1.3" max="2.0" step="0.01" value="1.5">
+          <span class="ctrl-val" id="n1-out">1.50</span>
+        </div>
+      </div>
+      <div class="ctrl-card">
+        <span class="ctrl-label">외부 굴절률 &nbsp;n₀</span>
+        <div class="ctrl-row">
+          <input type="range" id="n0" min="1.0" max="1.49" step="0.01" value="1.0">
+          <span class="ctrl-val" id="n0-out">1.00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-label">임계각 θc</div>
+        <div class="stat-val" id="s-tc">41.8°</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">cutoff angle β_min</div>
+        <div class="stat-val" id="s-bmin">48.2°</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">β_min에서의 최대 θ₀</div>
+        <div class="stat-val" id="s-tmax">—</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="myChart" role="img"
+        aria-label="taper angle β와 출사각 θ₀의 관계. cutoff angle 이상의 β 범위에서 θ₀가 단조 감소함을 보여준다.">
+        β와 출사각 θ₀의 관계 그래프.
+      </canvas>
+    </div>
+
+    <div class="legend">
+      <span><span class="leg-line" style="background:#4f8ef7;"></span>출사각 θ₀</span>
+      <span><span class="leg-line" style="background:#e05c6a; border-top:2px dashed #e05c6a; background:none;"></span>cutoff에서의 최대 θ₀</span>
+    </div>
+
+  </div>
+
+</div><!-- .page -->
+
+<script>
+(function () {
+  const n1El = document.getElementById('n1');
+  const n0El = document.getElementById('n0');
+  const n1Out = document.getElementById('n1-out');
+  const n0Out = document.getElementById('n0-out');
+  const sTc   = document.getElementById('s-tc');
+  const sBmin = document.getElementById('s-bmin');
+  const sTmax = document.getElementById('s-tmax');
+
+  const ctx = document.getElementById('myChart').getContext('2d');
+  let chart = null;
+
+  const toRad = d => d * Math.PI / 180;
+  const toDeg = r => r * 180 / Math.PI;
+
+  function compute(n1, n0) {
+    const theta_c  = Math.asin(n0 / n1);
+    const beta_min = Math.PI / 2 - theta_c;
+    const startDeg = Math.ceil(toDeg(beta_min) * 10) / 10;
+
+    const betas = [], thetas = [];
+
+    for (let bd = startDeg; bd <= 89; bd += 0.5) {
+      const b = toRad(bd);
+      const sinArg = (n1 / n0) * Math.cos(b);
+      if (sinArg > 1) continue;
+      const phi0   = Math.asin(sinArg);
+      const theta0 = phi0 - (Math.PI / 2 - b);
+      betas.push(parseFloat(bd.toFixed(1)));
+      thetas.push(parseFloat(toDeg(theta0).toFixed(3)));
+    }
+
+    const cutoffTheta = thetas.length ? thetas[0] : 0;
+    return { theta_c, beta_min, betas, thetas, cutoffTheta };
+  }
+
+  function update() {
+    const n1 = parseFloat(n1El.value);
+    const n0 = parseFloat(n0El.value);
+
+    n1Out.textContent = n1.toFixed(2);
+    n0Out.textContent = n0.toFixed(2);
+
+    const { theta_c, beta_min, betas, thetas, cutoffTheta } = compute(n1, n0);
+
+    sTc.textContent   = toDeg(theta_c).toFixed(1) + '°';
+    sBmin.textContent = toDeg(beta_min).toFixed(1) + '°';
+    sTmax.textContent = cutoffTheta.toFixed(2) + '°';
+
+    const flat = betas.map(() => parseFloat(cutoffTheta.toFixed(3)));
+
+    const gridColor  = 'rgba(255,255,255,0.07)';
+    const tickColor  = '#8b90a0';
+    const titleColor = '#8b90a0';
+
+    if (chart) {
+      chart.data.labels = betas;
+      chart.data.datasets[0].data = thetas;
+      chart.data.datasets[1].data = flat;
+      chart.update();
+    } else {
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: betas,
+          datasets: [
+            {
+              label: '출사각 θ₀ (°)',
+              data: thetas,
+              borderColor: '#4f8ef7',
+              borderWidth: 2,
+              pointRadius: 0,
+              tension: 0.3,
+              fill: false
+            },
+            {
+              label: 'cutoff에서의 최대 θ₀',
+              data: flat,
+              borderColor: '#e05c6a',
+              borderWidth: 1.5,
+              borderDash: [6, 4],
+              pointRadius: 0,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: items => `β = ${items[0].label}°`,
+                label: item  => item.datasetIndex === 0 ? `θ₀ = ${item.raw.toFixed(2)}°` : null,
+                filter: item => item.datasetIndex === 0
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: { display: true, text: 'taper angle β (°)', color: titleColor, font: { size: 12 } },
+              ticks: { color: tickColor, font: { size: 11 }, autoSkip: true, maxRotation: 0 },
+              grid:  { color: gridColor }
+            },
+            y: {
+              title: { display: true, text: '출사각 θ₀ (°)', color: titleColor, font: { size: 12 } },
+              ticks: { color: tickColor, font: { size: 11 } },
+              grid:  { color: gridColor }
+            }
+          }
+        }
+      });
+    }
+  }
+
+  n1El.addEventListener('input', update);
+  n0El.addEventListener('input', update);
+  update();
+})();
+</script>
+</body>
+</html>
