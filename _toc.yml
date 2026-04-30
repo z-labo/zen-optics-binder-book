@@ -2,7 +2,6 @@ format: jb-book
 root: intro
 
 chapters:
-  - file: interference
   - file: exit
   - file: PIM
 
