@@ -1,0 +1,730 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>XGS-PON (10-Gigabit Symbetric Passive Optical Network) &#8212; All about light</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@*/dist/embed-amd.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pon';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">All about light</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Basics of optics
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="exit.html">Exit angle from a fiber</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PIM.html">Propagation indipendent modes (PIM)</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/z-labo/zen-optics-binder-book/main?urlpath=lab/tree/pon.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/z-labo/zen-optics-binder-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/z-labo/zen-optics-binder-book/issues/new?title=Issue%20on%20page%20%2Fpon.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/pon.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>XGS-PON (10-Gigabit Symbetric Passive Optical Network)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#itu-tg-9807-1">次世代光ファイバー通信規格（ITU-TG.9807.1）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">예시경로</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">계층구조</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1계층 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">광원</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">변조방식</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcast-tdma">전송 방식: 하향 broadcast, 상향 TDMA</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">검출방식</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#splitter">중간 분기점, splitter에서 일어나는 일</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pon">PON 구간에서 증폭은?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">물리층에서 데이터 링크층으로 넘기기 전 처리</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="xgs-pon-10-gigabit-symbetric-passive-optical-network">
+<h1>XGS-PON (10-Gigabit Symbetric Passive Optical Network)<a class="headerlink" href="#xgs-pon-10-gigabit-symbetric-passive-optical-network" title="Permalink to this heading">#</a></h1>
+<section id="itu-tg-9807-1">
+<h2>次世代光ファイバー通信規格（ITU-TG.9807.1）<a class="headerlink" href="#itu-tg-9807-1" title="Permalink to this heading">#</a></h2>
+<p><br />
+家庭用・法人用高速インターネット: NURO光などの高速通信サービスで導入が進んでいる。
+XGS-PON의 대표 파장은 downstream 1577 nm근처, upstream 1270 nm근처로 알려져 있다
+Dense Wavelength Division Multiplexing(DWDM)은 다양한 광파장을 사용하여 여러 데이터 채널을 가진 단일 광섬유 멤버를 통해 데이터를 전송하는 가장 진보된 방법 중 하나입니다. 광섬유 입력의 용량 밀도와 다양성을 개선하여 빠른 데이터 부스트를 가능하게 하며, 이는 현대 통신의 기반을 형성합니다. 네트워크 및 데이터 센터. 각 채널은 별도의 파장에 있으므로 서로 영향을 미치지 않고 동시에 방대한 양의 정보를 전송할 수 있습니다. 이는 설정된 거리에서 빠르고 안정적인 통신을 위한 필수적인 기반을 형성하여 인프라를 늘리고 필요한 추가 파이버를 줄입니다.
+DWDM 시스템에서 가장 기본적인 장치는 광 트랜스폰더, 멀티플렉서, 디멀티플렉서, 광 증폭기입니다. 트랜스폰더를 사용하면 전기 신호가 적절한 파장의 광 신호로 변환되어 DWDM이 작동할 수 있습니다. 멀티플렉서는 다양한 파장의 수많은 신호가 하나의 파이버로 결합되어 데이터 대역폭을 효과적으로 사용하는 광 통신에 사용됩니다. 디멀티플렉서는 반대로 결합된 광 신호를 광섬유에서 분리하여 추가 처리를 위한 구성 요소별 신호로 만듭니다. 에르븀 도핑 파이버 증폭기(EDFA)는 신호를 전기 형태로 다시 변환하지 않고 장거리에서 신호 강도를 높이는 광 증폭기입니다. 이러한 요소는 광 시스템에서 효과적인 광대역 데이터 전송을 위한 충분한 대용량 채널을 보장합니다.
+DWDM멀티플렉서와 디멀티플렉서는 주로 AWG(Arrayed Waveguide Grating) 기술을 사용.
+광 트랜스폰더는 광섬유와 전기신호와의 쌍방향 변환을 실시. 예를 들어, O(1310)-E-O(1550)광 전환 유닛일때 파장을 직접 바꾸기가 어려우므로, 파장변환을 해주는 트랜스폰더를 사용하는것이다. 트랜스폰더는 트랜시버의 광전변환 기능에 더하여, 파장변환 기능을 추가로 가진다. 송신단, 전송, 수신단으로 구성. 또한 각각방향에 파장변환장치 Mux/ Demux가 있음.</p>
+<p><img alt="image.png" src="https://media.licdn.com/dms/image/v2/D4D22AQEcP_bNWs3AJg/feedshare-shrink_800/B4DZv1V4ZbIgAg-/0/1769347712793?e=2147483647&amp;v=beta&amp;t=Saj805v2h31aqEUXkdTNlrP-0of9_qEnees6SS5RonU" /></p>
+</section>
+<section id="id1">
+<h2>예시경로<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>예시 경로:</p>
+<p>PC/스마트폰 → 집 공유기 → ONT/ONU → 광분배기, splitter → 통신사 OLT → BNG/라우터 → 메트로/코어 DWDM 광전송망 → IX/CDN/데이터센터 라우터 → 서버</p>
+<p>이 중 “진짜 광통신”이 일어나는 구간은 크게 두 부분이다.</p>
+<p>가입자망/access 구간</p>
+<p>집 ONT/ONU ↔ 통신사 국사 OLT
+예: XGS-PON
+하향 1577 nm, 상향 1270 nm 근처
+세기변조/직접검출, IM-DD
+수동 광분배기 사용
+메트로/코어/장거리 구간</p>
+<p>통신사 라우터/전송장비 ↔ 다른 국사/데이터센터
+예: 100G/400G coherent DWDM
+C-band, 대략 1530~1565 nm, 즉 약 191~196 THz
+DP-QPSK, DP-16QAM 등 coherent 변조
+EDFA/Raman 증폭기, ROADM 사용</p>
+</section>
+<section id="id2">
+<h2>계층구조<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="id3">
+<h3>1계층 구성<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>캐리어 주파수, 변조, 전송, 검출, 증폭, 분기가 일어나는 곳</p>
+<p>PC/공유기 ─ Ethernet ─ ONT/ONU ────── single-mode fiber ────── splitter ────── OLT
+1:N passive optical splitter</p>
+<p>ONT/ONU: 집에 있는 광모뎀.
+OLT: 통신사 국사에 있는 PON 집선 장비.
+ODN: Optical Distribution Network. 중간의 광섬유, 커넥터, 분배기 포함.
+splitter: 전원 없는 수동 소자. 예를 들어 1:16, 1:32, 1:64 등으로 한 OLT 포트를 여러 가입자에게 나눈다.</p>
+<p>대표값:</p>
+<p>방향	파장	대략적 광 캐리어 주파수
+OLT → ONT 하향	1577 nm	약 190.1 THz
+ONT → OLT 상향	1270 nm	약 236.1 THz</p>
+<section id="id4">
+<h4>광원<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>하향, OLT 송신기
+보통 DFB laser 또는 EML, Electro-Absorption Modulated Laser 계열을 사용한다.
+1577 nm 근처의 좁은 스펙트럼 광원을 만들고, 이 빛의 세기를 데이터에 따라 켜고 끄거나 높고 낮게 바꾼다.</p>
+<p>상향, ONT 송신기
+ONT는 1270 nm 근처의 burst-mode 레이저 송신기를 쓴다.
+중요한 점은 상향은 여러 ONT가 같은 파장을 공유하기 때문에, ONT가 계속 빛을 내면 안 된다.
+OLT가 “너는 이 시간 슬롯에 보내라”고 허가한 순간에만 짧게 burst로 송신한다.</p>
+</section>
+<section id="id5">
+<h4>변조방식<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<p>XGS-PON access 구간은 일반적으로 IM-DD, Intensity Modulation Direct Detection 방식이다.</p>
+<p>Intensity Modulation: 빛의 세기를 데이터에 따라 바꿈.
+Direct Detection: 수신기가 광전류의 크기를 바로 검출함.실질적으로는 NRZ OOK/PAM-2 계열로 볼 수 있다.
+OOK: On-Off Keying.
+1이면 빛 강함, 0이면 빛 약함/꺼짐.또는 두 레벨의 광세기.
+PON 계열은 오랫동안 IM-DD 기반 NRZ/OOK를 사용해 왔고, XGS-PON도 coherent가 아니라 저가의 직접검출 구조를 사용한다.</p>
+<p>QSFP-DD 400G-ZR/ZR+とは？
+これまでトランスポンダーという高価な装置で実現していた、高速大容量（400G x 64＝25.6T）＆長距離（120km～）の光伝送を小さな光
+トランシーバーで実現しちゃおう！という野心的な規格
+トランスポンダーが不要になり、スイッチ/ルーターとトランスポンダーをつなぐための大量の光トランシーバーも不要になるので、システム全体の劇的な低コスト化、省電力化、省スペース化が可能</p>
+</section>
+<section id="broadcast-tdma">
+<h4>전송 방식: 하향 broadcast, 상향 TDMA<a class="headerlink" href="#broadcast-tdma" title="Permalink to this heading">#</a></h4>
+<p>하향: OLT → 모든 ONT에 broadcast
+OLT가 1577 nm 빛으로 프레임을 보낸다.
+OLT ──1577 nm downstream── splitter ── 모든 ONT
+splitter는 전기적 스위치가 아니다. 그냥 빛을 나눠 보낸다. 따라서 하향 광신호는 같은 splitter에 붙은 모든 ONT에 도달한다.</p>
+<p>하지만 각 ONT는 프레임 안의 식별자, 예를 들어 XGEM Port-ID, 암호화 키 등을 보고 자기에게 온 데이터만 수용한다.</p>
+<p>즉 물리적으로는 broadcast, 논리적으로는 가입자별 분리다.</p>
+<p>상향: 여러 ONT → OLT, TDMA
+상향은 문제가 있다. 여러 ONT가 동시에 1270 nm로 쏘면 충돌한다.</p>
+<p>그래서 XGS-PON은 TDMA, Time Division Multiple Access를 쓴다.</p>
+<p>Copy시간축:
+[ONT A 송신][guard][ONT B 송신][guard][ONT C 송신][guard]…
+OLT가 각 ONT에게 upstream bandwidth map/grant를 내려준다.</p>
+<p>“ONT A는 t1~t2에 보내라.”
+“ONT B는 t3~t4에 보내라.”
+“ONT C는 t5~t6에 보내라.”
+이 과정을 DBA, Dynamic Bandwidth Allocation가 조절한다. 트래픽이 많은 ONT에게 더 많은 upstream slot을 줄 수 있다.</p>
+<p>ranging: 거리 보정
+각 ONT는 OLT로부터 거리가 다르다.</p>
+<p>A 가입자: 1 km
+B 가입자: 8 km
+C 가입자: 15 km
+그러면 같은 시각에 쏜 빛도 OLT에 도착하는 시간이 다르다. 그래서 OLT는 초기 등록 과정에서 각 ONT의 지연을 측정하고, ONT별 송신 타이밍을 조정한다. 이것이 ranging이다.</p>
+<p>결과적으로 OLT 입장에서는 각 ONT burst가 정해진 슬롯에 맞춰 들어온다.</p>
+</section>
+<section id="id6">
+<h4>검출방식<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<p>ONT 수신기, 하향
+ONT 안에는 보통 다음 블록이 있다.</p>
+<p>photodiode/APD → TIA → limiting amplifier/equalizer → CDR → bit recovery</p>
+<p>photodiode 또는 APD: 빛을 전류로 바꿈.
+TIA, transimpedance amplifier: 작은 광전류를 전압 신호로 증폭.
+equalizer: 광섬유 분산, 전기적 대역 제한으로 찌그러진 파형 보정.
+CDR, Clock and Data Recovery: 클록과 데이터를 복원.
+이후 FEC 복호, 프레임 동기, XGEM 처리로 넘어간다.</p>
+<p>OLT 수신기, 상향
+OLT 쪽 상향 수신기는 더 까다롭다. 왜냐하면 ONT마다 거리가 다르고, 광파워도 다르며, burst가 짧게 들어오기 때문이다.</p>
+<p>그래서 burst-mode receiver가 필요하다.</p>
+<p>burst마다 빠르게 이득 조정.
+decision threshold 조정.
+클록 재동기.
+각 ONT의 수신 파워 차이 보정.</p>
+</section>
+<section id="splitter">
+<h4>중간 분기점, splitter에서 일어나는 일<a class="headerlink" href="#splitter" title="Permalink to this heading">#</a></h4>
+<p>PON의 splitter는 보통 수동 광분배기다.</p>
+<p>하는 일:</p>
+<p>하향: OLT에서 온 빛을 1:N으로 나눈다.
+상향: 여러 ONT에서 온 빛을 N:1로 합친다.
+하지 않는 일:</p>
+<p>패킷 해석 안 함.
+MAC 주소 안 봄.
+IP 주소 안 봄.
+전기 변환 안 함.
+증폭 안 함.
+라우팅 안 함.
+예를 들어 1:32 splitter면 이상적으로만 봐도 분배 손실이:</p>
+<p>10log
+10
+​
+(32)≈15 dB
+여기에 삽입 손실, 커넥터 손실, 광섬유 손실이 더해진다.</p>
+</section>
+<section id="pon">
+<h4>PON 구간에서 증폭은?<a class="headerlink" href="#pon" title="Permalink to this heading">#</a></h4>
+<p>일반 FTTH PON access 구간에서는 보통 중간 광증폭기를 두지 않는다.</p>
+<p>이름 그대로 Passive Optical Network이기 때문이다.</p>
+<p>대신 설계할 때 optical budget을 맞춘다.</p>
+<p>광섬유 손실: 1550 nm 근처에서 대략 0.2 dB/km 수준.
+20 km면 약 4 dB.
+1:32 splitter 손실 약 15~17 dB.
+커넥터, 접속, 여유 마진 포함.
+총 손실이 OLT/ONT의 optical budget 안에 들어오도록 설계.
+XGS-PON 장비는 보통 20 km급 ODN을 많이 전제로 하고, 광 budget class에 따라 허용 손실이 다르다.</p>
+</section>
+<section id="id7">
+<h4>물리층에서 데이터 링크층으로 넘기기 전 처리<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<p>OLT나 ONT가 광신호를 받은 뒤 바로 Ethernet frame이 나오는 게 아니다. 대략 이런 처리가 있다.</p>
+<p>→ 광 검출
+→ 전기 신호
+→ 증폭/등화
+→ 클록 데이터 복원, CDR
+→ 비트 스트림 복원
+→ 프레임 동기
+→ scrambling/descrambling
+→ FEC 복호
+→ XGTC/XGEM 프레임 해석
+→ Ethernet frame 재조립
+→ 데이터 링크층으로 전달</p>
+<p>XG-PON/XGS-PON 계열은 XGEM encapsulation, fragmentation, delineation 등을 사용한다. ITU-T G.987.3 계열에서 XGEM이 SDU fragmentation, encapsulation, delineation을 지원한다고 설명한다. ITU-T G.987.3</p>
+<p>또한 XGS-PON은 RS FEC, Reed-Solomon FEC를 사용한다. 예를 들어 ITU 문서 검색 결과에 따르면 XGS-PON downstream FEC code로 **RS(248,216)**가 언급된다. ITU-T G.9807.1 e-publication 검색 결과</p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "z-labo/zen-optics-binder-book",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#itu-tg-9807-1">次世代光ファイバー通信規格（ITU-TG.9807.1）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">예시경로</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">계층구조</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1계층 구성</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">광원</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">변조방식</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcast-tdma">전송 방식: 하향 broadcast, 상향 TDMA</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">검출방식</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#splitter">중간 분기점, splitter에서 일어나는 일</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pon">PON 구간에서 증폭은?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">물리층에서 데이터 링크층으로 넘기기 전 처리</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Zen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
