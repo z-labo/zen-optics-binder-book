@@ -4,18 +4,35 @@
     { code: 'en', label: 'English' },
     { code: 'ko', label: '한국어' },
   ];
+  const DEFAULT_LANG = 'ja';
   const STORAGE_KEY = 'zen-book-lang';
 
+  function normalizeLang(lang) {
+    return LANGS.some((l) => l.code === lang) ? lang : DEFAULT_LANG;
+  }
+
   function applyLanguage(lang) {
+    const normalized = normalizeLang(lang);
     document.querySelectorAll('[data-lang]').forEach((el) => {
-      el.style.display = (el.getAttribute('data-lang') === lang) ? '' : 'none';
+      const isSelected = el.getAttribute('data-lang') === normalized;
+      el.style.display = isSelected ? '' : 'none';
+      el.setAttribute('aria-hidden', isSelected ? 'false' : 'true');
     });
-    localStorage.setItem(STORAGE_KEY, lang);
+    localStorage.setItem(STORAGE_KEY, normalized);
+
+    const select = document.querySelector('#language-switcher select');
+    if (select && select.value !== normalized) {
+      select.value = normalized;
+    }
   }
 
   function createSwitcher() {
+    if (document.getElementById('language-switcher')) return;
+
     const searchBtn = document.querySelector('.search-button__button') || document.querySelector('button.search-button-field');
-    if (!searchBtn || document.getElementById('language-switcher')) return;
+    const headerButtons = document.querySelector('.article-header-buttons') || document.querySelector('.navbar-btn-group');
+    const mountPoint = headerButtons || searchBtn?.parentElement;
+    if (!mountPoint) return;
 
     const wrapper = document.createElement('div');
     wrapper.id = 'language-switcher';
@@ -35,20 +52,23 @@
       select.appendChild(opt);
     });
 
-    const saved = localStorage.getItem(STORAGE_KEY) || 'ja';
+    const saved = normalizeLang(localStorage.getItem(STORAGE_KEY));
     select.value = saved;
     applyLanguage(saved);
 
     select.addEventListener('change', (e) => applyLanguage(e.target.value));
     wrapper.appendChild(select);
 
-    const parent = searchBtn.closest('.navbar-btn-group') || searchBtn.parentElement;
-    parent.parentElement.insertBefore(wrapper, parent);
+    if (headerButtons) {
+      headerButtons.prepend(wrapper);
+    } else {
+      mountPoint.insertBefore(wrapper, mountPoint.firstChild);
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     createSwitcher();
-    const saved = localStorage.getItem(STORAGE_KEY) || 'ja';
+    const saved = normalizeLang(localStorage.getItem(STORAGE_KEY));
     applyLanguage(saved);
   });
 })();
