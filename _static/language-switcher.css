@@ -1,6 +1,6 @@
 /* 기본: 모든 언어 블록 숨김 - JS가 선택된 언어만 표시 */
 [data-lang] {
-  display: none;
+  /* display: none; */
 }
 
 /* 언어 전환 버튼 */
