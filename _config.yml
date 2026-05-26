@@ -22,5 +22,3 @@ sphinx:
     - https://cdn.plot.ly/plotly-2.30.0.min.js
     - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
     - https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@*/dist/embed-amd.js
-
-    
