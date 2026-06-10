@@ -4,6 +4,7 @@ exclude_patterns:
   - temp/*
   - "**.ipynb_checkpoints"
   - _build
+only_build_toc_files: false
 execute:
   execute_notebooks: false
 repository:
