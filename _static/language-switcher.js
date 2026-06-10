@@ -9,7 +9,7 @@
     { code: 'en', label: 'English', folder: 'en', fileSuffix: 'en' },
     { code: 'ko', label: '한국어',   folder: 'kr', fileSuffix: 'kr' },
   ];
-  const DEFAULT_LANG = 'ja';
+  const DEFAULT_LANG = 'en';
   const STORAGE_KEY = 'zen-book-lang';
 
   function normalizeLang(lang) {
@@ -113,6 +113,34 @@
     }
   }
 
+
+  function removeHiddenNavigationItems() {
+    var hiddenTargets = ['/ja/PIM_ja', '/kr/PIM_kr', 'ja/PIM_ja.html', 'kr/PIM_kr.html'];
+    document.querySelectorAll('.bd-sidebar-primary a, nav a').forEach(function (link) {
+      var href = link.getAttribute('href') || '';
+      var shouldHide = hiddenTargets.some(function (target) { return href.indexOf(target) !== -1; });
+      if (!shouldHide) return;
+
+      var item = link.closest('li') || link;
+      item.hidden = true;
+      item.style.display = 'none';
+    });
+  }
+
+  function removePrevNextNavigation() {
+    var selectors = [
+      '.prev-next-area',
+      '.prev-next-footer',
+      '.footer-prev-next',
+      '.article-footer-prev-next',
+      'nav.prev-next',
+      'nav[aria-label="Page navigation"]'
+    ];
+    selectors.forEach(function (selector) {
+      document.querySelectorAll(selector).forEach(function (el) { el.remove(); });
+    });
+  }
+
   function init() {
     var pageLang = detectCurrentLang();
     var savedLang = normalizeLang(localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG);
@@ -122,6 +150,8 @@
     // navigates between language equivalents (handled by button clicks).
     var currentCode = pageLang || savedLang;
 
+    removeHiddenNavigationItems();
+    removePrevNextNavigation();
     createSwitcher(currentCode);
     setActiveButton(currentCode);
     showOnlyCurrentLangBlocks(currentCode);

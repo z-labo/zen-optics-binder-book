@@ -59,3 +59,60 @@
   margin-right: 0;
   box-sizing: border-box;
 }
+
+/* Keep the site navigation focused on the single public PIM entry. The
+   Japanese and Korean notebook pages are still built and reachable through
+   the language switcher, but they should not appear as separate book entries. */
+.bd-sidebar-primary a[href*="/ja/PIM_ja"],
+.bd-sidebar-primary a[href*="/kr/PIM_kr"],
+.bd-sidebar-primary a[href$="ja/PIM_ja.html"],
+.bd-sidebar-primary a[href$="kr/PIM_kr.html"] {
+  display: none !important;
+}
+
+/* Remove previous/next navigation from the content and sidebars. */
+.prev-next-area,
+.prev-next-footer,
+.footer-prev-next,
+.article-footer-prev-next,
+nav.prev-next,
+nav[aria-label="Page navigation"] {
+  display: none !important;
+}
+
+/* Put the detailed in-page table of contents on the left on desktop layouts
+   and avoid showing the book-level navigation there. */
+@media (min-width: 960px) {
+  .bd-sidebar-primary {
+    display: none !important;
+  }
+
+  .bd-main {
+    display: grid !important;
+    grid-template-columns: minmax(13rem, 18rem) minmax(0, 1fr) !important;
+    grid-template-areas: "zen-page-toc zen-content" !important;
+    gap: 1.5rem !important;
+  }
+
+  .bd-main .bd-content {
+    grid-area: zen-content !important;
+    min-width: 0;
+  }
+
+  .bd-main .bd-sidebar-secondary,
+  .bd-main .bd-toc {
+    grid-area: zen-page-toc !important;
+    display: block !important;
+    visibility: visible !important;
+    order: -1 !important;
+    width: auto !important;
+    max-width: 18rem !important;
+    margin: 0 !important;
+  }
+
+  .bd-sidebar-secondary .sidebar-secondary-item,
+  .bd-sidebar-secondary nav,
+  .bd-toc nav {
+    display: block !important;
+  }
+}
